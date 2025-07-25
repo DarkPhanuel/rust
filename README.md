@@ -1,8 +1,30 @@
-# RUST - Apprentissage Fondamentaux
-# 21/07/2025
+# RUST - Formation Complète
+*Apprentissage Fondamentaux et Programmation Réseau*  
+**Dernière mise à jour :** 25/07/2025
+**Auteur :** WOANA Joseph
+
+## Table des Matières
+1. [Introduction au langage Rust](#introduction-au-langage-rust)
+2. [Installation et environnement de développement](#a-installation-et-environnement-de-développement)
+3. [Syntaxe et éléments de base](#b-syntaxe-et-éléments-de-base)
+4. [Structures de données et POO](#c-structures-de-données-et-poo)
+5. [Mécanismes avancés du langage](#d-mécanismes-avancés-du-langage)
+6. [Projet d'application - Système de gestion bancaire](#e-projet-dapplication---système-de-gestion-bancaire)
+7. [Travaux Pratiques Avancés - Programmation Réseau](#travaux-pratiques-avancés---programmation-réseau)
+
+---
 
 ## Introduction au langage Rust
+
 Rust est un langage de programmation système moderne, utilisé pour l'embarqué et le développement web. Il offre une sécurité mémoire supérieure à C++ pour les applications critiques, grâce à son système de gestion de la propriété (ownership) qui évite les fuites mémoire et les erreurs de segmentation.
+
+**Caractéristiques principales :**
+- Langage compilé (compilateur : `rustc`, extension : `.rs`)
+- Génère un `.exe` ou un `.out` après compilation
+- Gestion mémoire automatique sans garbage collector
+- Manipulation de mémoire sécurisée et performante
+
+---
 
 ## A. Installation et environnement de développement
 
@@ -16,8 +38,6 @@ Pour vérifier Cargo (gestionnaire de paquets de Rust, permet de créer des nouv
 cargo --version
 ```
 
-Rust est un langage compilé (son compilateur est rustc et son extension est .rs). Il génère un .exe ou un .out après compilation.
-
 ### Créer un nouveau projet
 ```bash
 cargo new tp0
@@ -25,15 +45,20 @@ cargo new tp0
 
 ### Commandes Cargo essentielles
 ```bash
-cargo build       # Compiler en mode debug
-cargo run         # Compiler et exécuter
+cargo build       # Compiler en mode debug (par défaut)
+cargo run         # Compiler et exécuter le projet
 cargo check       # Vérifier le code sans compiler
 cargo test        # Exécuter les tests unitaires
 cargo update      # Mettre à jour les dépendances
-cargo doc --open  # Générer et ouvrir la documentation
+cargo doc --open  # Générer et ouvrir la documentation dans le navigateur web
 ```
 
-**Note :** Les dépendances sont à ajouter dans le fichier `Cargo.toml`. Le fichier `main.rs` est le point d'entrée du programme.
+**Configuration importante :**
+- Les dépendances sont à ajouter dans le fichier `Cargo.toml` sous `[dependencies]`
+- Le fichier `main.rs` est le point d'entrée du programme
+- Pour manipuler des fichiers : `use std::fs::File`
+
+---
 
 ## B. Syntaxe et éléments de base
 
@@ -52,7 +77,11 @@ println!("J'ai {} ans.", age);
 let mut solde: f64 = 1000.0;
 ```
 
-**Par convention de RUST :** il faut utiliser le snake_case, ne jamais commencer par un chiffre, ni espace, ni tirets. Ajouter un underscore `_` à une variable inutilisée pour éviter les warnings.
+**Convention de nommage RUST :**
+- Utiliser le `snake_case` (et non `camelCase`)
+- Ne jamais commencer par un chiffre
+- Pas d'espaces ni de tirets
+- Ajouter un underscore `_` à une variable inutilisée pour éviter les warnings
 
 ### 2) Fonctions
 `fn` définit une fonction
@@ -154,6 +183,17 @@ println!("Entrez votre choix :");
 let choix = lire_input();
 ```
 
+### 6) Formatage et affichage
+```rust
+// println! est une macro qui permet d'afficher dans la console (comme printf en C)
+use chrono::Local;
+let maintenant = Local::now();
+println!("Format FR : {}", maintenant.format("%d/%m/%Y")); // Format JJ/MM/YYYY  
+println!("Format FR : {}", maintenant.format("%d/%m/%Y %H:%M:%S"));
+```
+
+---
+
 ## C. Structures de données et POO
 
 ### Définition d'une structure
@@ -187,6 +227,8 @@ impl Personne {
 }
 ```
 
+---
+
 ## D. Mécanismes avancés du langage
 
 ### 1) Système de propriété (Ownership)
@@ -206,6 +248,8 @@ Rust gère automatiquement la mémoire sans garbage collector grâce au système
 - **Vecteurs** : `Vec<T>` pour des collections dynamiques
 - **Tableaux** : taille fixe définie à la compilation
 - Méthodes d'itération avec `iter()` et `enumerate()`
+
+---
 
 ## E. Projet d'application - Système de gestion bancaire
 
@@ -245,4 +289,112 @@ impl CompteBancaire {
 - **Gestion d'entrées utilisateur** avec validation
 - **Formatage d'affichage** avec `println!` et spécificateurs de format
 
-Ce TP illustre l'utilisation concrète des concepts Rust dans un projet complet et fonctionnel.
+---
+
+## Travaux Pratiques Avancés - Programmation Réseau
+
+### TP 7: Client et Serveur DNS Simples
+
+**Description :**  
+Ce TP propose d'implémenter un client DNS basique capable de résoudre des noms de domaine en adresses IP, et un serveur DNS simple qui répond à des requêtes pour quelques domaines prédéfinis. Ce TP explorera la programmation UDP et le format des messages DNS.
+
+**Prérequis :**
+- Maîtrise de la programmation réseau UDP en Rust
+- Compréhension du protocole DNS (structure des requêtes/réponses)
+- Manipulation de données binaires
+
+**Objectifs Pédagogiques :**
+- Envoyer et recevoir des paquets UDP formatés
+- Parser et construire des messages DNS (en-têtes, questions, réponses)
+- Implémenter une logique de résolution DNS simple
+- Comprendre le rôle du DNS dans l'infrastructure réseau
+
+**Concepts Clés :**
+- `UdpSocket`
+- Format des messages DNS (RFC 1035)
+- Sérialisation/désérialisation de données binaires
+- Résolution de noms
+
+---
+
+### TP 8: Implémentation d'un Protocole Personnalisé
+
+**Description :**  
+Les étudiants concevront et implémenteront un protocole réseau simple (par exemple, un protocole de messagerie ou de transfert de fichiers) au-dessus de TCP ou UDP. Ils devront définir le format des messages, les règles d'échange et implémenter un client et un serveur conformes à ce protocole.
+
+**Prérequis :**
+- Excellente maîtrise de la programmation réseau en Rust (TCP et/ou UDP)
+- Capacité à concevoir des spécifications de protocole
+- Bonne compréhension de la sérialisation/désérialisation
+
+**Objectifs Pédagogiques :**
+- Concevoir un protocole réseau fonctionnel
+- Implémenter un protocole à partir de zéro
+- Gérer les états de session (si TCP)
+- Développer des clients et serveurs interopérables
+- Mettre en pratique toutes les connaissances acquises en programmation réseau
+
+**Concepts Clés :**
+- Définition de protocole (en-têtes, corps, codes d'opération)
+- Sérialisation/désérialisation (ex: serde)
+- Gestion des états
+- Robustesse et gestion des erreurs de protocole
+
+---
+
+### TP 9: Serveur et Client WebSocket
+
+**Description :**  
+Ce TP vise à implémenter un serveur et un client WebSocket en Rust. Les WebSockets permettent une communication bidirectionnelle persistante entre un client et un serveur, idéale pour les applications en temps réel comme les chats ou les tableaux de bord interactifs. Les étudiants utiliseront une crate comme `tokio-tungstenite`.
+
+**Prérequis :**
+- Bonne maîtrise de la programmation asynchrone avec Tokio
+- Compréhension des concepts de base de HTTP (pour la phase de handshake WebSocket)
+
+**Objectifs Pédagogiques :**
+- Comprendre le protocole WebSocket et son utilité
+- Implémenter un serveur WebSocket capable de gérer plusieurs connexions
+- Développer un client WebSocket pour interagir avec le serveur
+- Gérer les messages WebSocket (texte, binaire)
+
+**Concepts Clés :**
+- WebSocket (protocole)
+- `tokio-tungstenite` (crate)
+- Handshake WebSocket
+- Communication full-duplex
+- Messages texte et binaires
+
+---
+
+## Ressources Complémentaires
+
+### Documentation Officielle
+- [The Rust Programming Language](https://doc.rust-lang.org/book/)
+- [Rust by Example](https://doc.rust-lang.org/rust-by-example/)
+- [Cargo Documentation](https://doc.rust-lang.org/cargo/)
+
+### Crates Utiles pour la Programmation Réseau
+- `tokio` - Runtime asynchrone
+- `tokio-tungstenite` - WebSockets
+- `serde` - Sérialisation/désérialisation
+- `chrono` - Manipulation des dates
+
+### Commandes de Référence Rapide
+```bash
+# Gestion de projet
+cargo new mon_projet
+cargo build
+cargo run
+cargo test
+cargo check
+
+# Documentation
+cargo doc --open
+
+# Mise à jour
+cargo update
+```
+
+---
+
+*Ce document constitue un guide complet pour l'apprentissage de Rust, des fondamentaux à la programmation réseau avancée. Il illustre l'utilisation concrète des concepts Rust dans des projets complets et fonctionnels.*
